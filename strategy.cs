@@ -1,129 +1,156 @@
-using System; 
+namespace Strategy
+{
 
-
-namespace Strategy {
-
-  interface iQuackStrategy {
-    public void quack();
-  }
-
-  class NormalQuack : iQuackStrategy {
-    public void quack() {
-      Console.WriteLine("quack");
-    }
-  }
-
-  class ScreamQuack : iQuackStrategy {
-    public void quack() {
-      Console.WriteLine("QUAOUAOUAO");
-    }
-  }
-
-  class SilentQuack : iQuackStrategy {
-    public void quack() {
-      Console.WriteLine("");
-    }
-  }
-
-
-  interface iSwimStrategy {
-    public void swim();
-  }
-
-  class NormalSwimming : iSwimStrategy {
-    public void swim() {
-      Console.WriteLine("just give me some bread");
-    }
-  }
-
-  class UnderwaterSwimming : iSwimStrategy {
-    public void swim() {
-      Console.WriteLine("I`m drowning!");
-    }
-  }
-
-
-  interface iFlyingStrategy {
-    public void fly();
-  }
-
-  class NormalFlying : iFlyingStrategy {
-    public void fly() {
-      Console.WriteLine("I`m flying to warmer climes");
-    }
-  }
-
-  class FLyLikeWhale : iFlyingStrategy {
-    public void fly() {
-      Console.WriteLine("I`m tired(");
-    }
-  }
-
-
-  interface iDisplayStrategy {
-    public void display();
-  }
-  
-  class NormalDisplay : iDisplayStrategy {
-    public void display() {
-      Console.WriteLine("this is duck");
-    }
-  }
-
-  class ErrorDisplay : iDisplayStrategy {
-    public void display() {
-      Console.WriteLine("that duck is busy");
-    }
-  }
-  
-
-  class Duck {
-    private iQuackStrategy quackStrategy;
-    private iSwimStrategy swimStrategy;
-    private iFlyingStrategy flyStrategy;
-    private iDisplayStrategy displayStrategy;
-
-    public Duck(iQuackStrategy quackStrategy, iSwimStrategy swimStrategy, iFlyingStrategy flyStrategy, iDisplayStrategy displayStrategy) {
-      this.quackStrategy = quackStrategy;
-      this.swimStrategy = swimStrategy;
-      this.flyStrategy = flyStrategy;
-      this.displayStrategy = displayStrategy;
+    interface IQuackStrategy
+    {
+        public void Quack();
     }
 
-    public void Quack() {
-      quackStrategy.quack();
+    class NormalQuack : IQuackStrategy
+    {
+        public void Quack()
+        {
+            Console.WriteLine("quack");
+        }
     }
 
-    public void Swim() {
-      swimStrategy.swim();
+    class ScreamQuack : IQuackStrategy
+    {
+        public void Quack()
+        {
+            Console.WriteLine("QUAOUAOUAO");
+        }
     }
 
-    public void Fly() {
-      flyStrategy.fly();
+    class SilentQuack : IQuackStrategy
+    {
+        public void Quack()
+        {
+            Console.WriteLine("");
+        }
     }
 
-    public void Display() {
-      displayStrategy.display();
-    }
-  }
 
-
-  class Program {
-
-    static void Test(Duck duck) {
-      duck.Quack();
-      duck.Swim();
-      duck.Fly();
-      duck.Display();
+    interface ISwimStrategy
+    {
+        public void Swim();
     }
 
-    static void Main() {
-      Duck MandarinDuck = new Duck (new ScreamQuack(), new NormalSwimming(), new NormalFlying(), new NormalDisplay());
-      Duck PlushDuck  = new Duck (new SilentQuack(), new UnderwaterSwimming(), new FLyLikeWhale(), new ErrorDisplay());
-
-      Program.Test(MandarinDuck);
-      Program.Test(PlushDuck);
+    class NormalSwimming : ISwimStrategy
+    {
+        public void Swim()
+        {
+            Console.WriteLine("just give me some bread");
+        }
     }
-  }
+
+    class UnderwaterSwimming : ISwimStrategy
+    {
+        public void Swim()
+        {
+            Console.WriteLine("I`m drowning!");
+        }
+    }
+
+
+    interface IFlyingStrategy
+    {
+        public void Fly();
+    }
+
+    class NormalFlying : IFlyingStrategy
+    {
+        public void Fly()
+        {
+            Console.WriteLine("I`m flying to warmer climes");
+        }
+    }
+
+    class FLyLikeWhale : IFlyingStrategy
+    {
+        public void Fly()
+        {
+            Console.WriteLine("I`m tired(");
+        }
+    }
+
+
+    interface IDisplayStrategy
+    {
+        public void Display();
+    }
+
+    class NormalDisplay : IDisplayStrategy
+    {
+        public void Display()
+        {
+            Console.WriteLine("this is duck");
+        }
+    }
+
+    class ErrorDisplay : IDisplayStrategy
+    {
+        public void Display()
+        {
+            Console.WriteLine("that duck is busy");
+        }
+    }
+
+
+    class Duck
+    {
+        private IQuackStrategy quackStrategy;
+        private ISwimStrategy swimStrategy;
+        private IFlyingStrategy flyStrategy;
+        private IDisplayStrategy displayStrategy;
+
+        public Duck(IQuackStrategy quackStrategy, ISwimStrategy swimStrategy, IFlyingStrategy flyStrategy, IDisplayStrategy displayStrategy)
+        {
+            this.quackStrategy = quackStrategy;
+            this.swimStrategy = swimStrategy;
+            this.flyStrategy = flyStrategy;
+            this.displayStrategy = displayStrategy;
+        }
+
+        public void Quack()
+        {
+            quackStrategy.Quack();
+        }
+
+        public void Swim()
+        {
+            swimStrategy.Swim();
+        }
+
+        public void Fly()
+        {
+            flyStrategy.Fly();
+        }
+
+        public void Display()
+        {
+            displayStrategy.Display();
+        }
+    }
+
+
+    public class Strategy
+    {
+        static void Test(Duck duck)
+        {
+            duck.Quack();
+            duck.Swim();
+            duck.Fly();
+            duck.Display();
+        }
+
+        public static void Main()
+        {
+            Duck MandarinDuck = new(new ScreamQuack(), new NormalSwimming(), new NormalFlying(), new NormalDisplay());
+            Duck PlushDuck = new(new SilentQuack(), new UnderwaterSwimming(), new FLyLikeWhale(), new ErrorDisplay());
+
+            Test(MandarinDuck);
+            Test(PlushDuck);
+        }
+    }
 }
-
